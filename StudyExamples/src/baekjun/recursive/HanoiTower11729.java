@@ -16,7 +16,7 @@ public class HanoiTower11729 {
 		for(int i = 0; i<N; i++) {
 			cnt *= 2;
 		}
-		bw.write(String.valueOf(cnt - 1) + "\n"); //hanoi 타워의 규칙은 2^n - 1 개다.
+		bw.write(String.valueOf(cnt - 1) + "\n"); //hanoi 타워의 규칙은 2^n - 1 개다. ok?
 		hanoi(N, 1, 2, 3);
 		bw.flush();
 		bw.close();
