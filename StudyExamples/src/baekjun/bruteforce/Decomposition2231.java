@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 public class Decomposition2231 {
 
 	public static void main(String[] args) throws NumberFormatException, IOException {
+		//분해합 찾기
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int N = Integer.parseInt(br.readLine());
 		boolean flag = false;
