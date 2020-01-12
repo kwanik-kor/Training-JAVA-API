@@ -10,13 +10,13 @@ import java.util.StringTokenizer;
 
 public class Sdoku2580 {
 	static int N = 9;
-	static int[][] map = new int[N][N];
-	static boolean chk;
 	static int size;
-	static ArrayList<Node> list = new ArrayList<>();
+	static boolean chk;
+	static int[][] map = new int[N][N];
+	static ArrayList<Node> list = new ArrayList<Node>();
 	static StringBuilder sb = new StringBuilder();
 	
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 		for(int i = 0; i<N; i++) {
@@ -28,7 +28,7 @@ public class Sdoku2580 {
 			}
 		}
 		size = list.size();
-		solve(0,0);
+		solve(0, 0);
 		bw.write(sb.toString());
 		bw.flush();
 		bw.close();
@@ -39,8 +39,8 @@ public class Sdoku2580 {
 		if(chk) return;
 		if(cnt == size) {
 			chk = true;
-			for(int i = 0; i<9; i++) {
-				for(int j = 0; j<9; j++) {
+			for(int i = 0; i<N; i++) {
+				for(int j = 0; j<N; j++) {
 					sb.append(map[i][j] + " ");
 				}
 				sb.append("\n");
@@ -48,33 +48,32 @@ public class Sdoku2580 {
 			return;
 		}
 		Node node = list.get(idx);
-		for(int i = 1; i<=9; i++) {
+		for(int i = 1; i<=N; i++) {
 			if(!isPossible(node.x, node.y, i))
 				continue;
 			map[node.x][node.y] = i;
-			solve(idx + 1, cnt + 1);
+			solve(idx+1, cnt+1);
 			if(chk) return;
-			map[node.x][node.y] = 0;
+			map[node.x][node.y]= 0; 
 		}
 	}
 	
-	static boolean isPossible(int x, int y, int z) {
+	static boolean isPossible(int x, int y, int temp) {
 		for(int i = 0; i<N; i++) {
-			if(map[i][y] == z || map[x][i] == z)
+			if(map[i][y] == temp || map[x][i] == temp)
 				return false;
 		}
 		for(int i = (x/3)*3; i<(x/3)*3 + 3; i++) {
 			for(int j = (y/3)*3; j<(y/3)*3 + 3; j++) {
-				if(map[i][j] == z)
+				if(map[i][j] == temp)
 					return false;
 			}
 		}
 		return true;
 	}
-	
 }
 
-class Node {
+class Node{
 	int x;
 	int y;
 	Node(int x, int y){
@@ -82,3 +81,4 @@ class Node {
 		this.y = y;
 	}
 }
+
