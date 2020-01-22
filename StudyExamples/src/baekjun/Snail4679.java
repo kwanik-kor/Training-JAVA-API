@@ -16,12 +16,10 @@ public class Snail4679 {
 			float U = sc.nextInt();
 			int D = sc.nextInt();
 			int F = sc.nextInt();
-			int day = 0;
-			float sum = 0f;
+			int day = 1;
+			float sum = U - D;
 			float fa = U*F/100f;
-			if(U <= H) {
-				day++;
-				sum = U - D;
+			if(U <= H && sum > 0) {
 				while(sum <= H) {
 					day++;
 					U -= fa;
