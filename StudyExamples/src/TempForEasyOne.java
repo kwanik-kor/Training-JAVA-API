@@ -8,10 +8,13 @@ public class TempForEasyOne {
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-		int T = Integer.parseInt(br.readLine());
-		for(int t = 0; t<T; t++) {
-			String s[] = br.readLine().split(",");
-			bw.write(Integer.parseInt(s[0]) + Integer.parseInt(s[1]) + "\n");
+		int N = Integer.parseInt(br.readLine());
+		for(int i = 0; i<N; i++) {
+			for(int j = 0; j<i; j++)
+				bw.write(" ");
+			for(int j = 0; j<2*N - 2*(i+1) + 1; j++)
+				bw.write("*");
+			bw.write("\n");
 		}
 		bw.flush();
 		bw.close();
