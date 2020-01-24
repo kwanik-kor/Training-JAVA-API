@@ -3,26 +3,25 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.StringTokenizer;
 
 public class TempForEasyOne {
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-		int n = Integer.parseInt(br.readLine());
-		for(int i = 1; i <= n ; i++) {
-			for(int j = 0; j < n-i; j++)
-				bw.write(" ");
-			for(int j = 0; j < i*2-1; j++)
-				bw.write("*");
-			bw.write("\n");
-		}
-		
-		for(int i = n-1; i >= 0 ; i--) {
-			for(int j = 0; j < n-i; j++)
-				bw.write(" ");
-			for(int j = 0; j < i*2-1; j++)
-				bw.write("*");
-			bw.write("\n");
+		StringTokenizer st;
+		for(int t = 0; t<3; t++) {
+			st = new StringTokenizer(br.readLine());
+			int cnt = 0;
+			for(int i = 0; i<4; i++)
+				cnt = (Integer.parseInt(st.nextToken()) == 0)? cnt + 1 : cnt;
+			switch(cnt) {
+			case 0: bw.write("E\n"); break;
+			case 1: bw.write("A\n"); break;
+			case 2: bw.write("B\n"); break;
+			case 3: bw.write("C\n"); break;
+			case 4: bw.write("D\n"); break;
+			}
 		}
 		bw.flush();
 		bw.close();
