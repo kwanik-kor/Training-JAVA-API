@@ -9,9 +9,8 @@ public class TempForEasyOne {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 		int N = Integer.parseInt(br.readLine());
-		for(int i = 1; i<=2*N-1; i++) {
-			int temp = (i<=N)? i : 2*N - i;
-			for(int j = 0; j<temp; j++)
+		for(int i = 0; i<N; i++) {
+			for(int j = 0; j<N; j++)
 				bw.write("*");
 			bw.write("\n");
 		}
