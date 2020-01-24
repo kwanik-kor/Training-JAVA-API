@@ -13,7 +13,7 @@ public class TempForEasyOne {
 			for(int j = 0; j<N-(i+1); j++)
 				bw.write(" ");
 			for(int j = 0; j<2*(i+1)-1; j++) {
-				if(j == 0 || j == 2*i)
+				if(j%2 == 0)
 					bw.write("*");
 				else
 					bw.write(" ");
