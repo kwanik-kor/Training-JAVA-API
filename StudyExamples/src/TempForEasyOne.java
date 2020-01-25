@@ -9,22 +9,20 @@ public class TempForEasyOne {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 		int N = Integer.parseInt(br.readLine());
-		int length = 1 + 4 *(N - 1);
-		String arr[][] = new String[length][length];
-		for(int i = 0; i<length/2+1; i+=2) {
-			for(int j = i; j<length-i; j++) {
-				for(int k = i; k<length-i; k++) {
-					if(j != i && j != length-1-i && k != i && k != length-1-i)
-						arr[j][k] = " ";
-					else
-						arr[j][k] = "*";
-				}
+		int flag = 1;
+		for(int i = 1; i<=2*N-1; i++) {
+			for(int j = 1; j<=4*N-3; j++) {
+				if((i == 1 || i == 2*N-1) && (j<=N || j>=3*N-2))
+					bw.write("*");
+				else if(j == flag || j == 4*N-2 - flag || j == flag + N -1 || j == 3*N - 1 - flag)
+					bw.write("*");
+				else if(j == 4*N - 1 - flag)
+					break;
+				else
+					bw.write(" ");
 			}
-		}
-		for(int i = 0; i<length; i++) {
-			for(int j = 0; j<length; j++){
-				bw.write(arr[i][j]);
-			}
+			if(i<=N-1) flag++;
+			else flag--;
 			bw.write("\n");
 		}
 		bw.flush();
