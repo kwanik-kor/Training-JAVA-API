@@ -9,20 +9,27 @@ public class TempForEasyOne {
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-		int T = Integer.parseInt(br.readLine());
-		StringTokenizer st;
-		for(int t = 0; t<T; t++) {
-			int N = Integer.parseInt(br.readLine());
-			float sum = 0f;
-			int cnt = 0;
-			for(int i = 0; i<N; i++) {
-				st = new StringTokenizer(br.readLine());
-				int n = Integer.parseInt(st.nextToken());
-				cnt += n;
-				sum += Float.parseFloat(st.nextToken())*n;
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		int N = Integer.parseInt(st.nextToken());
+		int M = Integer.parseInt(st.nextToken());
+		int arr[] = new int[M];
+		st = new StringTokenizer(br.readLine());
+		for(int i = 0; i<M; i++)
+			arr[i] = Integer.parseInt(st.nextToken());
+		
+		int total = 0;
+		for(int i = 1; i <= N; i++) {
+			boolean chk = false;
+			for(int j = 0; j<M; j++) {
+				if(i % arr[j] == 0) {
+					chk = true;
+					break;
+				}
 			}
-			bw.write(String.format("%d %.1f\n", cnt, sum/cnt));
+			if(chk) total += i;
 		}
+		
+		bw.write(total + "");
 		bw.flush();
 		bw.close();
 		br.close();
