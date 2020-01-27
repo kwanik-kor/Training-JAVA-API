@@ -8,8 +8,8 @@ public class TempForEasyOne {
 	public static void main(String[] args) throws IOException{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-		int N = Integer.parseInt(br.readLine());
-		
+		String s = (Integer.parseInt(br.readLine()) == 0)? "YONSEI" : "Leading the Way to the Future";
+		bw.write(s);
 		bw.flush();
 		bw.close();
 		br.close();
