@@ -12,24 +12,21 @@ public class TempForEasyOne {
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		int N = Integer.parseInt(st.nextToken());
 		int M = Integer.parseInt(st.nextToken());
-		int arr[] = new int[M];
-		st = new StringTokenizer(br.readLine());
-		for(int i = 0; i<M; i++)
-			arr[i] = Integer.parseInt(st.nextToken());
-		
-		int total = 0;
-		for(int i = 1; i <= N; i++) {
-			boolean chk = false;
-			for(int j = 0; j<M; j++) {
-				if(i % arr[j] == 0) {
-					chk = true;
-					break;
-				}
+		int arr[] = new int[N];
+		for(int i = 0; i<N; i++)
+			arr[i] = Integer.parseInt(br.readLine());
+		for(int m = 0; m<M; m++) {
+			st = new StringTokenizer(br.readLine());
+			int a = Integer.parseInt(st.nextToken());
+			int b = Integer.parseInt(st.nextToken());
+			int min = 1000000001;
+			int max = 0;
+			for(int i = a-1; i<b; i++) {
+				max = Math.max(max, arr[i]);
+				min = Math.min(min, arr[i]);
 			}
-			if(chk) total += i;
+			bw.write(min + " " + max + "\n");
 		}
-		
-		bw.write(total + "");
 		bw.flush();
 		bw.close();
 		br.close();
