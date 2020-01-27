@@ -3,28 +3,21 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.StringTokenizer;
 
 public class TempForEasyOne {
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-		int N = Integer.parseInt(br.readLine());
-		if(N % 2 == 0) bw.write("I LOVE CBNU");
-		else {
-			for(int i = 0; i<N/2 + 2; i++) {
-				for(int j = 0; j<N; j++) {
-					if(i == 0) bw.write("*");
-					else {
-						if(j == N/2 + 1 - i || j == N/2 - 1 + i) {
-							bw.write("*");
-							if(j == N/2 - 1 + i) break;
-						}else
-							bw.write(" ");
-					}
-				}
-				bw.write("\n");
-			}
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		int	C = Integer.parseInt(st.nextToken());
+		int	K = Integer.parseInt(st.nextToken());
+		int	P = Integer.parseInt(st.nextToken());
+		int sum = 0;
+		for(int i = 1; i<=C; i++) {
+			sum += i*(K + P*i);
 		}
+		bw.write(sum + "");
 		bw.flush();
 		bw.close();
 		br.close();
