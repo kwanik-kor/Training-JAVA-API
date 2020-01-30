@@ -24,14 +24,20 @@ public class Number1059 {
 		int b = 0;
 		for(int i = 0; i<L-1; i++) {
 			if(arr[i] < N && arr[i+1] > N) {
-				a = arr[i];
-				b = arr[i+1];
+				a = arr[i] + 1;
+				b = arr[i+1] - 1;
 				break;
 			}
 		}
 		int result = 0;
+		if(a == 0 && b == 0) {
+			if(N < arr[0]) {
+				a = 1;
+				b = arr[0] - 1;
+			}
+		}
 		if(a != 0 && b != 0) {
-			result = (N-b-1)*(a-N) + (a-N-1);
+			result = (b-N+1)*(N-a) + (b-N);
 		}
 		
 		bw.write(result + "");
