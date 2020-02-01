@@ -13,23 +13,21 @@ public class MakeBigger2812 {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 		StringTokenizer st = new StringTokenizer(br.readLine());
-		int N = Integer.parseInt(st.nextToken());
-		int K = Integer.parseInt(st.nextToken());
-		char arr[] = br.readLine().toCharArray();
-		int flag = 1;
-		for(int i = 1; i<N; i++) {
-			while(K > 0 && flag > 0 && arr[i-1] < arr[i]) {
-				arr[flag - 1] = arr[flag];
-				arr[flag] = 0;
+		int N = Integer.parseInt(st.nextToken());//N자리수
+		int K = Integer.parseInt(st.nextToken());//K개 지워서 최대 수 만들기
+		char carr[] = br.readLine().toCharArray();
+		char result[] = new char[N];
+		int idx = 0;
+		for(int i = 0; i<N; i++) {
+			if(idx == N - K) break;
+			while(idx > 0 && K > 0 && result[idx - 1] < carr[i]) {
+				idx--;
 				K--;
-				flag--;
 			}
-			flag++;
+			result[idx++] = carr[i];
 		}
-		for(int i = 0; i<arr.length; i++) {
-			System.out.print(arr[i]);
-		}
-		
+		for(int i = 0; i<result.length; i++)
+			bw.write(result[i]);
 		bw.flush();
 		bw.close();
 		br.close();
