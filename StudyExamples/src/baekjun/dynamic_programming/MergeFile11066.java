@@ -11,7 +11,7 @@ public class MergeFile11066 {
 	static int MAX = Integer.MAX_VALUE;
 	static int[] arr, sum;
 	static int[][] dp;
-	
+	//Today We have to rest a little bit
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
