@@ -28,7 +28,7 @@ public class MultipleMatrix11049 {
 		bw.flush();
 		bw.close();
 	}
-	
+	//곱하는 값을 변경해줘야함
 	static int dp(int start, int end) {
 		Matrix ms = marr.get(start-1);
 		Matrix me = marr.get(end-1);
