@@ -30,14 +30,19 @@ public class MultipleMatrix11049 {
 	}
 	//°öÇÏ´Â °ªÀ» º¯°æÇØÁà¾ßÇÔ
 	static int dp(int start, int end) {
-		Matrix ms = marr.get(start-1);
-		Matrix me = marr.get(end-1);
 		if(start >= end) return 0;
-		if(start + 1 == end) return ms.x * ms.y * me.y;
+		if(start + 1 == end) {
+			Matrix ms = marr.get(start-1);
+			Matrix me = marr.get(end-1);
+			return ms.x * ms.y * me.y;
+		}
 		if(dp[start][end] < MAX)
 			return dp[start][end];
 		for(int i = start; i<end; i++) {
-			int temp = dp(start, i) + dp(start+1, end) + (ms.x*ms.y*me.y);
+			Matrix ms = marr.get(start-1);
+			Matrix mm = marr.get(i);
+			Matrix me = marr.get(end-1);
+			int temp = dp(start, i) + dp(i+1, end) + (ms.x*mm.x*me.y);
 			dp[start][end] = Math.min(dp[start][end], temp);
 		}
 		
