@@ -13,6 +13,8 @@ public class SpecificShortestWay1504 {
 	static int N, E, dist[], INF = 1000000000;
 	static LinkedList<Node> adj[];
 	static boolean visited[];
+	//1 -> node1 -> node2 -> N
+	//1 -> node2 -> node1 -> N
 	
 	static void dijkstra(int start) {
 		PriorityQueue<Node> pq = new PriorityQueue<>();
