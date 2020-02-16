@@ -14,6 +14,7 @@ public class SpecificShortestWay1504 {
 	static LinkedList<Node> adj[];
 	static boolean visited[];
 	
+	//this should be changed into multiple array to resolve this problem
 	static void dijkstra(int start) {
 		PriorityQueue<Node> pq = new PriorityQueue<>();
 		dist[start] = 0;
