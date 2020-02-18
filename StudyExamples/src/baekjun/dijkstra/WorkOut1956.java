@@ -20,10 +20,8 @@ public class WorkOut1956 {
 		E = Integer.parseInt(st.nextToken());
 		dist = new int[V+1][V+1];
 		for(int i = 1; i<=V; i++) {
-			for(int j = 1; j<=V; j++) {
-				if(i == j) continue;
+			for(int j = 1; j<=V; j++)
 				dist[i][j] = INF;
-			}
 		}
 		
 		for(int i = 0; i<E; i++) {
@@ -44,11 +42,8 @@ public class WorkOut1956 {
 		}
 		
 		int result = Integer.MAX_VALUE;
-		for(int i = 1; i<=V-1; i++) {
-			for(int j = i+1; j<=V; j++) {
-				result = Math.min(result, dist[i][j] + dist[j][i]);
-			}
-		}
+		for(int i = 1; i<=V; i++)
+			result = Math.min(result, dist[i][i]);
 		bw.write(((result >= INF)? -1 : result) + "");
 		bw.flush();
 		bw.close();
