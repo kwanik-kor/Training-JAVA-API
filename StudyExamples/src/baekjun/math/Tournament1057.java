@@ -27,5 +27,4 @@ public class Tournament1057 {
 		bw.close();
 		br.close();
 	}
-
 }
