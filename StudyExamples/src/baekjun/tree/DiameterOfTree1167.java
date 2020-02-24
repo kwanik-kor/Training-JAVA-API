@@ -10,7 +10,7 @@ import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
 public class DiameterOfTree1167 {
-	static int V, ans = 0;
+	static int V, ans = 0, idx = 0;
 	static int dist[];
 	static boolean visited[];
 	static LinkedList<Node> list[];
@@ -32,8 +32,12 @@ public class DiameterOfTree1167 {
 				}
 			}
 		}
-		
-		checkDiameter();
+		for(int i = 1; i<=V; i++) {
+			if(ans < dist[i]) {
+				idx = i;
+				ans = dist[i];
+			}
+		}
 	}
 	
 	static void initArr() {
@@ -41,11 +45,6 @@ public class DiameterOfTree1167 {
 			visited[i] = false;
 			dist[i] = 0;
 		}
-	}
-	
-	static void checkDiameter() {
-		for(int i = 1; i<=V; i++) 
-			ans = Math.max(ans, dist[i]);
 	}
 	
 	public static void main(String[] args) throws IOException {
@@ -67,9 +66,8 @@ public class DiameterOfTree1167 {
 				list[node].add(new Node(e, v));
 			}
 		}
-		for(int i = 1; i<=V; i++) {
-			dijkstra(i);
-		}
+		dijkstra(1);
+		dijkstra(idx);
 		bw.write(ans + "");
 		bw.flush();
 		bw.close();
