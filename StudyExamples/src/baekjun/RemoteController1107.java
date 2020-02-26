@@ -10,6 +10,7 @@ import java.util.StringTokenizer;
 public class RemoteController1107 {
 	static int N, M;
 	static boolean broken[] = new boolean[10];
+	static StringTokenizer st;
 	
 	static int countMoving(int num) {
 		int cnt = 0;
@@ -27,7 +28,8 @@ public class RemoteController1107 {
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 		N = Integer.parseInt(br.readLine());
 		M = Integer.parseInt(br.readLine());
-		StringTokenizer st = new StringTokenizer(br.readLine());
+		if(M > 0) 
+			st = new StringTokenizer(br.readLine());
 		if(N == 100) bw.write("0");
 		else {
 			for(int i = 0; i<M; i++) 
@@ -45,5 +47,4 @@ public class RemoteController1107 {
 		bw.close();
 		br.close();
 	}
-
 }
