@@ -5,38 +5,19 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.StringTokenizer;
 
 public class Constellation4386 {
 	static int N, parent[];
-	static Edge list[];
+	static Star stars[];
+	static ArrayList<Edge> list = new ArrayList<>();
 	static StringTokenizer st;
 	
-	static double findMinDist(double minDist, int idx) {
-		Edge now = list[idx];
-		double min = Integer.MAX_VALUE;
-		int minIdx = 0;
-		for(int i = 1; i<=N; i++) {
-			if(i != idx && !isSameParent(i, idx)) {
-				double dist = calcDist(idx, i);
-				if(min > dist) {
-					min = dist;
-					minIdx = i;
-				}
-			}
-		}
-		
-		if(min == Integer.MAX_VALUE) return minDist;
-		else {
-			union(idx, minIdx);
-			minDist += min;
-			return findMinDist(minDist, minIdx);
-		}
-	}
-	
-	static double calcDist(int a, int b) {
-		double x = Math.abs(list[a].x - list[b].x);
-		double y = Math.abs(list[a].y - list[b].y);
+	static double getDist(int a, int b) {
+		double x = Math.abs(stars[a].x - stars[b].x);
+		double y = Math.abs(stars[a].y - stars[b].y);
 		return Math.sqrt(x*x + y*y);
 	}
 	
@@ -63,28 +44,55 @@ public class Constellation4386 {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 		N = Integer.parseInt(br.readLine());
+		stars = new Star[N+1];
 		parent = new int[N+1];
-		list = new Edge[N+1];
-		for(int i = 1; i<=N; i++) 
-			parent[i] = i;
 		for(int i = 1; i<=N; i++) {
 			st = new StringTokenizer(br.readLine());
-			double x = Double.parseDouble(st.nextToken());
-			double y = Double.parseDouble(st.nextToken());
-			list[i] = new Edge(x, y);
+			stars[i] = new Star(Double.parseDouble(st.nextToken()), Double.parseDouble(st.nextToken()));
+			parent[i] = i;
 		}
-		bw.write(String.format("%.2f", findMinDist(0,1)));
+		for(int i = 1; i<=N-1; i++) {
+			for(int j = i+1; j<=N; j++)
+				list.add(new Edge(i, j, getDist(i, j)));
+		}
+		Collections.sort(list);
+		int cnt = 0;
+		double sum = 0.0;
+		for(Edge e : list) {
+			if(!isSameParent(e.x, e.y)) {
+				sum += e.val;
+				union(e.x, e.y);
+				if(++cnt == N-1) break;
+			}
+		}
+		bw.write(String.format("%.2f", sum));
 		bw.flush();
 		bw.close();
 		br.close();
 	}
 	
-	static class Edge{
+	static class Star{
 		double x;
 		double y;
-		public Edge(double x, double y) {
+		public Star(double x, double y) {
 			this.x = x;
 			this.y = y;
+		}
+	}
+	
+	static class Edge implements Comparable<Edge>{
+		int x;
+		int y;
+		double val;
+		public Edge(int x, int y, double val) {
+			this.x = x;
+			this.y = y;
+			this.val = val;
+		}
+		@Override
+		public int compareTo(Edge e) {
+			double result = this.val - e.val;
+			return result >= 0.0 ? 1 : -1;
 		}
 	}
 }
