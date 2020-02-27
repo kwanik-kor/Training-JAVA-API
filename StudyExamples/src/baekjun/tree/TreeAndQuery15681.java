@@ -10,9 +10,18 @@ import java.util.StringTokenizer;
 
 public class TreeAndQuery15681 {
 	static int N, R, Q;
-	static int dp[], parent[];
+	static int dp[];
 	static LinkedList<Integer> list[];
 	static StringTokenizer st;
+	
+	static int dfs(int now, int parent) {
+		dp[now] = 1;
+		for(Integer i : list[now]) {
+			if(parent == i) continue;
+			dp[now] += dfs(i, now);
+		}
+		return dp[now];
+	}
 	 
 	public static void main(String[] args) throws IOException{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -33,10 +42,11 @@ public class TreeAndQuery15681 {
 			list[a].add(b);
 			list[b].add(a);
 		}
-	}
-	
-	static class Node{
-		int parent;
-		
+		dfs(R, 0);
+		for(int i = 0; i<Q; i++) 
+			bw.write(dp[Integer.parseInt(br.readLine())] + "\n");
+		bw.flush();
+		bw.close();
+		br.close();
 	}
 }
