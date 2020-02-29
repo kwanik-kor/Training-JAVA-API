@@ -3,28 +3,24 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.util.HashSet;
-import java.util.StringTokenizer;
 
 public class TempForEasyOne {
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-		StringTokenizer st = new StringTokenizer(br.readLine());
-		int N = Integer.parseInt(st.nextToken());
-		int M = Integer.parseInt(st.nextToken());
-		HashSet<Integer> set = new HashSet<>();
-		st = new StringTokenizer(br.readLine());
-		for(int i = 0; i<N; i++)
-			set.add(Integer.parseInt(st.nextToken()));
-		st = new StringTokenizer(br.readLine());
-		int cnt = 0;
-		for(int i = 0; i<M; i++) {
-			int n = Integer.parseInt(st.nextToken());
-			if(set.contains(n)) cnt++;
-			set.add(n);
+		String s = "";
+		while(!(s = br.readLine()).equals("0")) {
+			int total = 1;
+			for(int i = 0; i<s.length(); i++) {
+				if(s.charAt(i) - '0' >= 2)
+					total += 3 + 1;
+				else if(s.charAt(i) - '0' == 1)
+					total += 2 + 1;
+				else if(s.charAt(i) - '0' == 0)
+					total += 4 + 1;
+			}
+			bw.write(total+"\n");
 		}
-		bw.write(set.size() - cnt + "");
 		bw.flush();
 		bw.close();
 		br.close();
