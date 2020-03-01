@@ -3,23 +3,30 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.StringTokenizer;
 
 public class TempForEasyOne {
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-		int N = Integer.parseInt(br.readLine());
-		int total = 0;
-		int ten = 10;
-		int length = 1;
-		for(int i = 1; i<=N; i++) {
-			if(i == ten) {
-				length++;
-				ten *= 10;
-			}
-			total += length;
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		int N = Integer.parseInt(st.nextToken());
+		int M = Integer.parseInt(st.nextToken());
+		HashSet<String> set = new HashSet<>();
+		ArrayList<String> result = new ArrayList<>();
+		for(int i = 0; i<N; i++) 
+			set.add(br.readLine());
+		for(int i = 0; i<M; i++) {
+			String name = br.readLine();
+			if(set.contains(name)) result.add(name);
 		}
-		bw.write(total + "");
+		Collections.sort(result);
+		bw.write(result.size() + "\n");
+		for(String s : result)
+			bw.write(s + "\n");
 		bw.flush();
 		bw.close();
 		br.close();
