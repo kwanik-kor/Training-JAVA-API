@@ -3,16 +3,15 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.math.BigInteger;
 
 public class TempForEasyOne {
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-		int N = Integer.parseInt(br.readLine());
-		StringBuilder sb = new StringBuilder("");
-		for(int i = 1; i<=N; i++)
-			sb.append(i);
-		bw.write(sb.indexOf(String.valueOf(N)) + 1 + "");
+		BigInteger a = new BigInteger(br.readLine());
+		BigInteger b = new BigInteger(br.readLine());
+		bw.write(a.add(b) + "\n" + a.subtract(b) + "\n" + a.multiply(b));
 		bw.flush();
 		bw.close();
 		br.close();
