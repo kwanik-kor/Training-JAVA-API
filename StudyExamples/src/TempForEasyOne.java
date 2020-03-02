@@ -3,30 +3,22 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.StringTokenizer;
 
 public class TempForEasyOne {
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-		StringTokenizer st = new StringTokenizer(br.readLine());
-		int N = Integer.parseInt(st.nextToken());
-		int M = Integer.parseInt(st.nextToken());
-		HashSet<String> set = new HashSet<>();
-		ArrayList<String> result = new ArrayList<>();
-		for(int i = 0; i<N; i++) 
-			set.add(br.readLine());
-		for(int i = 0; i<M; i++) {
-			String name = br.readLine();
-			if(set.contains(name)) result.add(name);
+		String s = "";
+		StringTokenizer st;
+		while(!(s = br.readLine()).equals("# 0 0")) {
+			st = new StringTokenizer(s);
+			String name = st.nextToken();
+			int age = Integer.parseInt(st.nextToken());
+			int weight = Integer.parseInt(st.nextToken());
+			if(age > 17 || weight >= 80) bw.write(name + " Senior\n");
+			else bw.write(name + " Junior\n");
 		}
-		Collections.sort(result);
-		bw.write(result.size() + "\n");
-		for(String s : result)
-			bw.write(s + "\n");
 		bw.flush();
 		bw.close();
 		br.close();
