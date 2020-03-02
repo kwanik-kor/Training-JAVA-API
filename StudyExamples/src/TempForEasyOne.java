@@ -9,19 +9,14 @@ public class TempForEasyOne {
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-		int N = Integer.parseInt(br.readLine());
 		StringTokenizer st = new StringTokenizer(br.readLine());
-		int flag = 0;
-		int total = 0;
-		for(int i = 0; i<N; i++) {
-			int ox = Integer.parseInt(st.nextToken());
-			if(ox == 0) flag = 0;
-			else {
-				flag++;
-				total += flag;
-			}
-		}
-		bw.write(total+"");
+		int A = Integer.parseInt(st.nextToken());
+		int B = Integer.parseInt(st.nextToken());
+		int C = Integer.parseInt(br.readLine());
+		int flag = (B + C%60)/60;
+		A = (A + C/60 + flag)%24;
+		B = (B + C%60)%60;
+		bw.write(A + " " + B);
 		bw.flush();
 		bw.close();
 		br.close();
