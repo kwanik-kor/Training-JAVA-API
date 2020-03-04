@@ -3,27 +3,22 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.util.StringTokenizer;
 
 public class TempForEasyOne {
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-		String s = "";
-		while(!(s = br.readLine()).equals("#")) {
-			StringTokenizer st = new StringTokenizer(s);
-			String a = st.nextToken();
-			String b = st.nextToken();
-			String c = st.nextToken();
-			char arr[] = a.toCharArray();
-			char brr[] = b.toCharArray();
-			char crr[] = c.toCharArray();
-			StringBuilder sb = new StringBuilder("");
-			for(int i = 0; i<arr.length; i++) {
-				int n = (brr[i] - arr[i] > 0)? brr[i] - arr[i] : 26 - (arr[i]-'a') + (brr[i]-'a');
-				sb.append((char)((crr[i]-'a'+n)%26 + 'a'));
+		int testCase = Integer.parseInt(br.readLine());
+		for(int t = 0; t<testCase; t++) {
+			String s= br.readLine();
+			int bcnt = 0;
+			int gcnt = 0;
+			for(int i = 0; i<s.length(); i++) {
+				char c = s.charAt(i);
+				if(c == 'b' || c == 'B') bcnt++;
+				else if(c == 'g' || c == 'G') gcnt++;
 			}
-			bw.write(a + " " + b + " " + c + " " + sb.toString() + "\n");
+			bw.write((bcnt>gcnt)? s + " is A BADDY\n" : ((gcnt>bcnt)? s + " is GOOD\n" : s + " is NEUTRAL\n"));
 		}
 		bw.flush();
 		bw.close();
