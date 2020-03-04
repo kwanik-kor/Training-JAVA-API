@@ -10,19 +10,11 @@ public class TempForEasyOne {
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 		int testCase = Integer.parseInt(br.readLine());
 		for(int t = 0; t<testCase; t++) {
-			String s= br.readLine();
-			int bcnt = 0;
-			int gcnt = 0;
-			for(int i = 0; i<s.length(); i++) {
-				char c = s.charAt(i);
-				if(c == 'b' || c == 'B') bcnt++;
-				else if(c == 'g' || c == 'G') gcnt++;
-			}
-			bw.write((bcnt>gcnt)? s + " is A BADDY\n" : ((gcnt>bcnt)? s + " is GOOD\n" : s + " is NEUTRAL\n"));
+			String s = br.readLine();
+			bw.write(s.substring(0,1).toUpperCase() + s.substring(1) + "\n");
 		}
 		bw.flush();
 		bw.close();
 		br.close();
 	}
-	
 }
