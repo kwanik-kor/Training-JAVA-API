@@ -3,20 +3,30 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.util.StringTokenizer;
 
 public class TempForEasyOne {
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-		StringTokenizer st = new StringTokenizer(br.readLine());
-		int N = Integer.parseInt(st.nextToken());
-		int W = Integer.parseInt(st.nextToken());
-		int H = Integer.parseInt(st.nextToken());
-		double tmp = Math.sqrt(W*W + H*H);
-		for(int i = 0; i<N; i++) {
-			if(Integer.parseInt(br.readLine()) <= tmp) bw.write("DA\n");
-			else bw.write("NE\n");
+		int arr[] = new int[9];
+		int total = 0;
+		for(int i = 0; i<9; i++) {
+			arr[i] = Integer.parseInt(br.readLine());
+			total += arr[i];
+		}
+		boolean flag = true;
+		for(int i = 0; i<8; i++) {
+			if(!flag) break;
+			for(int j = i+1; j<9; j++) {
+				if(total - (arr[i]+arr[j]) == 100) {
+					arr[i] = arr[j] = 0;
+					flag = false;
+					break;
+				}
+			}
+		}
+		for(int i = 0; i<9; i++) {
+			if(arr[i] != 0) bw.write(arr[i] + "\n");
 		}
 		bw.flush();
 		bw.close();
