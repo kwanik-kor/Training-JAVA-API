@@ -9,8 +9,21 @@ public class TempForEasyOne {
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-		StringTokenizer st = new StringTokenizer(br.readLine());
-		bw.write((Integer.parseInt(st.nextToken())*(-1) + 2*Integer.parseInt(st.nextToken())) + "");
+		int testCase = Integer.parseInt(br.readLine());
+		int arr[] = new int[7];
+		for(int t = 0; t<testCase; t++) {
+			StringTokenizer st = new StringTokenizer(br.readLine());
+			int total = 0;
+			int min = Integer.MAX_VALUE;
+			for(int i = 0; i<7; i++) {
+				arr[i] = Integer.parseInt(st.nextToken());
+				if(arr[i] % 2 == 0) {
+					total += arr[i];
+					min = Math.min(arr[i], min);
+				}
+			}
+			bw.write(total + " " + min + "\n");
+		}
 		bw.flush();
 		bw.close();
 		br.close();
