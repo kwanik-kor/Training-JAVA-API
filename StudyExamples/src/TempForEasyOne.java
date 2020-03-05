@@ -9,11 +9,11 @@ public class TempForEasyOne {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 		String s= "";
-		while(!(s = br.readLine()).equals("***")) {
-			String tmp = "";
-			for(int i = 0; i<s.length(); i++) 
-				tmp += s.charAt(s.length() - 1 - i);
-			bw.write(tmp + "\n");
+		double start = Double.parseDouble(br.readLine());
+		while(!(s = br.readLine()).equals("999")) {
+			double n = Double.parseDouble(s);
+			bw.write(String.format("%.2f\n", n-start));
+			start = n;
 		}
 		bw.flush();
 		bw.close();
