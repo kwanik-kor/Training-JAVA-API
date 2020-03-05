@@ -10,20 +10,18 @@ public class TempForEasyOne {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 		int testCase = Integer.parseInt(br.readLine());
-		for(int t = 0; t<testCase; t++) {
+		for(int t=0; t<testCase; t++) {
 			StringTokenizer st = new StringTokenizer(br.readLine());
-			String s1 = st.nextToken();
-			String s2 = st.nextToken();
-			bw.write("Distances: ");
-			for(int i = 0; i<s1.length(); i++) {
-				char c1 = s1.charAt(i);
-				char c2 = s2.charAt(i);
-				bw.write(((c2-c1>=0)? c2-c1 : c2+26-c1) + " ");
+			double n = Double.parseDouble(st.nextToken());
+			while(st.hasMoreTokens()) {
+				char operator = st.nextToken().charAt(0);
+				if(operator == '@') n *= 3;
+				else if(operator == '%') n += 5;
+				else if(operator == '#') n -= 7;
 			}
-			bw.write("\n");
+			bw.write(String.format("%.2f\n", n));
 		}
 		bw.flush();
 		bw.close();
-		br.close();
 	}
 }
