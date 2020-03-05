@@ -3,6 +3,7 @@ To train and study how to use and apply basic methods which Java provides throug
 At least 5 problems for each day
 I Believe steady training gonna improve my skill
 
+- - -
 
-###Profile link ↓
+### Profile link ↓
 https://www.acmicpc.net/user/rhksdlr134
