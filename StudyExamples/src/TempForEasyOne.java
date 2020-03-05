@@ -12,16 +12,15 @@ public class TempForEasyOne {
 		int testCase = Integer.parseInt(br.readLine());
 		for(int t = 0; t<testCase; t++) {
 			StringTokenizer st = new StringTokenizer(br.readLine());
-			int P = Integer.parseInt(st.nextToken());
-			int M = Integer.parseInt(st.nextToken());
-			boolean seats[] = new boolean[M+1];
-			int cnt = 0;
-			for(int i = 0; i<P; i++) {
-				int want = Integer.parseInt(br.readLine());
-				if(seats[want]) cnt++;
-				else seats[want] = true;
+			String s1 = st.nextToken();
+			String s2 = st.nextToken();
+			bw.write("Distances: ");
+			for(int i = 0; i<s1.length(); i++) {
+				char c1 = s1.charAt(i);
+				char c2 = s2.charAt(i);
+				bw.write(((c2-c1>=0)? c2-c1 : c2+26-c1) + " ");
 			}
-			bw.write(cnt + "\n");
+			bw.write("\n");
 		}
 		bw.flush();
 		bw.close();
