@@ -12,14 +12,11 @@ public class TempForEasyOne {
 		int testCase = Integer.parseInt(br.readLine());
 		for(int t=0; t<testCase; t++) {
 			StringTokenizer st = new StringTokenizer(br.readLine());
-			double n = Double.parseDouble(st.nextToken());
+			String tmp = st.nextToken() + " " + st.nextToken();
 			while(st.hasMoreTokens()) {
-				char operator = st.nextToken().charAt(0);
-				if(operator == '@') n *= 3;
-				else if(operator == '%') n += 5;
-				else if(operator == '#') n -= 7;
+				bw.write(st.nextToken() + " ");
 			}
-			bw.write(String.format("%.2f\n", n));
+			bw.write(tmp + "\n");
 		}
 		bw.flush();
 		bw.close();
