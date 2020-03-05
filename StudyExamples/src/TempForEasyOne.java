@@ -10,13 +10,18 @@ public class TempForEasyOne {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 		int testCase = Integer.parseInt(br.readLine());
-		StringTokenizer st;
-		for(int i = 0; i<testCase; i++) {
-			st = new StringTokenizer(br.readLine());
-			int r = Integer.parseInt(st.nextToken());
-			int e = Integer.parseInt(st.nextToken());
-			int c = Integer.parseInt(st.nextToken());
-			bw.write((r < e-c)? "advertise\n" : ((r == e-c)? "does not matter\n" : "do not advertise\n"));
+		for(int t = 0; t<testCase; t++) {
+			StringTokenizer st = new StringTokenizer(br.readLine());
+			int P = Integer.parseInt(st.nextToken());
+			int M = Integer.parseInt(st.nextToken());
+			boolean seats[] = new boolean[M+1];
+			int cnt = 0;
+			for(int i = 0; i<P; i++) {
+				int want = Integer.parseInt(br.readLine());
+				if(seats[want]) cnt++;
+				else seats[want] = true;
+			}
+			bw.write(cnt + "\n");
 		}
 		bw.flush();
 		bw.close();
