@@ -9,15 +9,15 @@ public class TempForEasyOne {
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-		StringTokenizer st = new StringTokenizer(br.readLine());
-		int e = Integer.parseInt(st.nextToken()) + Integer.parseInt(st.nextToken());
-		int c = Integer.parseInt(st.nextToken());
-		int cnt = 0;
-		while(e/c != 0) {
-			cnt += e/c;
-			e = e/c + e%c;
+		int testCase = Integer.parseInt(br.readLine());
+		StringTokenizer st;
+		for(int i = 0; i<testCase; i++) {
+			st = new StringTokenizer(br.readLine());
+			int r = Integer.parseInt(st.nextToken());
+			int e = Integer.parseInt(st.nextToken());
+			int c = Integer.parseInt(st.nextToken());
+			bw.write((r < e-c)? "advertise\n" : ((r == e-c)? "does not matter\n" : "do not advertise\n"));
 		}
-		bw.write(cnt + "");
 		bw.flush();
 		bw.close();
 		br.close();
