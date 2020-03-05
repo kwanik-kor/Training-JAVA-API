@@ -8,10 +8,12 @@ public class TempForEasyOne {
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-		int testCase = Integer.parseInt(br.readLine());
-		for(int t = 0; t<testCase; t++) {
-			String s = br.readLine();
-			bw.write(s.substring(0,1).toUpperCase() + s.substring(1) + "\n");
+		String s= "";
+		while(!(s = br.readLine()).equals("#")) {
+			int sum = 0;
+			for(int i = 0; i<s.length(); i++) 
+				sum += (i+1) *((s.charAt(i) == ' ')? 0 : s.charAt(i)-'A'+1);
+			bw.write(sum + "\n");
 		}
 		bw.flush();
 		bw.close();
