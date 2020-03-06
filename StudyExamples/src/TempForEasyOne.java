@@ -9,15 +9,10 @@ public class TempForEasyOne {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 		int N = Integer.parseInt(br.readLine());
-		int time = 0;
-		while(N>0) {
-			for(int i = 1; true; i++) {
-				if(N < i) break;
-				N -= i;
-				time++;
-			}
-		}
-		bw.write(time + "");
+		long total = 0;
+		for(int i = 1; i<N; i++) 
+			total += (long)N*i + i;
+		bw.write(total + "");
 		bw.flush();
 		bw.close();
 		br.close();
