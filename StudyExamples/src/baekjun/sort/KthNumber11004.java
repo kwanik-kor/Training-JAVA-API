@@ -1,3 +1,5 @@
+package baekjun.sort;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -5,15 +7,16 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.StringTokenizer;
 
-public class TempForEasyOne {
+public class KthNumber11004 {
 	static int N, K;
 	
 	static int partition(int[] arr, int left, int right) {
 		int mid = (left + right)/2;
+		int pivot = arr[mid];
 		swap(arr, left, mid);
 		
-		int pivot = arr[left];
-		int i = left, j = right;
+		int i = left;
+		int j = right;
 		while(i < j) {
 			while(pivot < arr[j]) {
 				j--;
@@ -38,10 +41,10 @@ public class TempForEasyOne {
 		if(left >= right) return;
 		int pi = partition(arr, left, right);
 		if(pi + 1 == K) return;
-		else if(pi + 1 < K)
-			quickSort(arr, pi + 1, right);
+		if(pi + 1 < K)
+			quickSort(arr, pi+1, right);
 		else
-			quickSort(arr, left, pi - 1);
+			quickSort(arr, left, pi-1);
 	}
 	
 	public static void main(String[] args) throws IOException {
@@ -50,8 +53,8 @@ public class TempForEasyOne {
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		N = Integer.parseInt(st.nextToken());
 		K = Integer.parseInt(st.nextToken());
-		int arr[] = new int[N];
 		st = new StringTokenizer(br.readLine());
+		int arr[] = new int[N];
 		for(int i = 0; i<N; i++)
 			arr[i] = Integer.parseInt(st.nextToken());
 		quickSort(arr, 0, N-1);
@@ -60,4 +63,5 @@ public class TempForEasyOne {
 		bw.close();
 		br.close();
 	}
+
 }
