@@ -9,19 +9,12 @@ public class TempForEasyOne {
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-		StringTokenizer st1 = new StringTokenizer(br.readLine());
-		StringTokenizer st2 = new StringTokenizer(br.readLine());
-		int a = 0;
-		int b = 0;
-		for(int i = 0; i<10; i++) {
-			int a_1 = Integer.parseInt(st1.nextToken());
-			int b_1 = Integer.parseInt(st2.nextToken());
-			if(a_1 > b_1) a++;
-			else if(a_1 < b_1) b++;
-		}
-		if(a == b) bw.write("D");
-		else if(a < b) bw.write("B");
-		else bw.write("A");
+		int arr[] = new int[201];
+		int N = Integer.parseInt(br.readLine());
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		for(int i = 0; i<N; i++)
+			arr[Integer.parseInt(st.nextToken())+100]++;
+		bw.write(arr[Integer.parseInt(br.readLine())+100] + "");
 		bw.flush();
 		bw.close();
 		br.close();
