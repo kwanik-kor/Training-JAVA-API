@@ -11,19 +11,16 @@ public class TempForEasyOne {
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 		int testCase = Integer.parseInt(br.readLine());
 		for(int t = 0; t<testCase; t++) {
-			int N = Integer.parseInt(br.readLine());
-			int max = 0;
-			String name = "";
-			for(int i = 0; i<N; i++) {
-				StringTokenizer st = new StringTokenizer(br.readLine());
-				String tmp = st.nextToken();
-				int quan = Integer.parseInt(st.nextToken());
-				if(quan > max) {
-					max = quan;
-					name = tmp;
-				}
+			StringTokenizer st = new StringTokenizer(br.readLine());
+			int a = Integer.parseInt(st.nextToken());
+			int b = Integer.parseInt(st.nextToken());
+			String str = br.readLine();
+			StringBuilder sb = new StringBuilder("");
+			for(int i = 0; i<str.length(); i++) {
+				char c = str.charAt(i);
+				sb.append((char)((a*(c-'A') + b)%26 + 'A'));
 			}
-			bw.write(name+"\n");
+			bw.write(sb.toString() + "\n");
 		}
 		bw.flush();
 		bw.close();
