@@ -3,25 +3,23 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.util.StringTokenizer;
 
 public class TempForEasyOne {
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-		int testCase = Integer.parseInt(br.readLine());
-		for(int t = 0; t<testCase; t++) {
-			StringTokenizer st = new StringTokenizer(br.readLine());
-			int a = Integer.parseInt(st.nextToken());
-			int b = Integer.parseInt(st.nextToken());
-			String str = br.readLine();
-			StringBuilder sb = new StringBuilder("");
-			for(int i = 0; i<str.length(); i++) {
-				char c = str.charAt(i);
-				sb.append((char)((a*(c-'A') + b)%26 + 'A'));
+		int N = Integer.parseInt(br.readLine());
+		int cnt = 0;
+		while(N >= 10) {
+			cnt++;
+			int tmp = 1;
+			while(N > 0) {
+				tmp *= N%10;
+				N /= 10;
 			}
-			bw.write(sb.toString() + "\n");
+			N = tmp;
 		}
+		bw.write(cnt+"");
 		bw.flush();
 		bw.close();
 		br.close();
