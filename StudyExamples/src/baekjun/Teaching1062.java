@@ -9,38 +9,44 @@ import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 public class Teaching1062 {
-	static int N, K;
-	static ArrayList<String> list = new ArrayList<>();
-	static ArrayList<Integer> words = new ArrayList<>();
-	static int ans = 0;
-
-	static void backTracking(boolean chk[], int cnt) {
-		if(cnt == K - 5) {
-			ans = Math.max(ans, checkWord(chk));
-			return;
-		}
-		for(int i = 0; i<words.size(); i++) {
-			if(chk[i]) continue;
-			chk[i] = true;
-			backTracking(chk, cnt + 1);
-			chk[i] = false;
-		}
-	}
+	static int N, K, max = 0;
+	static int alphabet[];
+	static String[] words;
 	
-	static int checkWord(boolean chk[]) {
+	public static void checkMaxRead(ArrayList<Integer> list) {
 		int cnt = 0;
-		for(String s : list) {
+		boolean canRead[] = new boolean[26];
+		for(Integer i : list) 
+			canRead[i] = true;
+		
+		for(int i = 0; i<N; i++) {
+			char carr[] = words[i].toCharArray();
 			boolean flag = true;
-			for(int i = 0; i<s.length(); i++) {
-				int c = s.charAt(i) - 97;
-				if(!chk[words.indexOf(c)]) {
+			for(int j = 0; j<carr.length; j++) {
+				if(!canRead[carr[j] - 'a']) {
 					flag = false;
 					break;
 				}
 			}
 			if(flag) cnt++;
 		}
-		return cnt;
+		max = Math.max(max, cnt);
+	}
+	
+	public static void selectAlphabet(int size, ArrayList<Integer> list) {
+		if(size == K-5) {
+			//check how many words that students can read
+			checkMaxRead(list);
+			return;
+		}
+		int small = list.isEmpty()? 1 : list.get(list.size() - 1) + 1;
+		for(int next = small; next<26; next++) {
+			if(next == 0 || next == 2 || next == 8 || next == 13 || next == 19)
+				continue;
+			list.add(next);
+			selectAlphabet(size + 1, list);
+			list.remove(list.size() - 1);
+		}
 	}
 	
 	public static void main(String[] args) throws IOException{
@@ -49,28 +55,13 @@ public class Teaching1062 {
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		N = Integer.parseInt(st.nextToken());
 		K = Integer.parseInt(st.nextToken());
-		
-		for(int i = 0; i<N; i++) {
-			String s = br.readLine().replaceAll("[antic]", "");
-			list.add(s);
-			for(int j = 0; j<s.length(); j++) {
-				boolean flag = false;
-				for(Integer in : words) {
-					if(in == s.charAt(j) - 97) 
-						flag = true;
-				}
-				if(!flag) words.add(s.charAt(j) - 97);
-			}
-		}
-		
-		if(K < 5) {
-			bw.write("0");
-		}else if(K == 26 || K-5 >= words.size()){
-			bw.write(N + "");
-		}else {
-			boolean chk[] = new boolean[words.size()];
-			backTracking(chk, 0);
-			bw.write(ans + "");
+		words = new String[N];
+		for(int i = 0; i<N; i++)
+			words[i] = br.readLine().replaceAll("[acint]", "");
+		if(K < 5) bw.write("0");
+		else {
+			selectAlphabet(0, new ArrayList<Integer>());
+			bw.write(max + "");
 		}
 		bw.flush();
 		br.close();
