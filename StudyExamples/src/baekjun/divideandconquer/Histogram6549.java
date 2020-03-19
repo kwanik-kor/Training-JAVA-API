@@ -21,11 +21,10 @@ public class Histogram6549 {
 		long height = Math.min(histo[low], histo[high]);
 		ret = Math.max(ret, height * 2);
 		while(left < low || high < right) {
-			if(high < right && (low == left || histo[low-1] < histo[high + 1])) {
+			if(high < right && (left == low || histo[low - 1] < histo[high + 1])) {
 				high++;
 				height = Math.min(height, histo[high]);
-			}
-			else {
+			}else {
 				low--;
 				height = Math.min(height, histo[low]);
 			}
