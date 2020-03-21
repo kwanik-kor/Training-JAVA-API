@@ -5,46 +5,71 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class Gaaaaaaaaaarden {
 	static int N, M, G, R;
-	static int INF = 987654321;
+	static int EMPTY = 0;
+	static int GREEN = 1;
+	static int RED = 2;
+	static int FLOWER = 3;
 	static int[][] map;
-	static char[][] colorMap;
+	static int[][] cand = new int[10][2];
+	static boolean[] visit = new boolean[10];
+	static int candsz = 0;
+	static int[] chosen_g = new int[5];
+	static int[] chosen_r = new int[5];
 	static int dy[] = {1, 0, -1, 0};
 	static int dx[] = {0, 1, 0, -1};
-	static ArrayList<Point> pos = new ArrayList<Point>();
 	static int maxCnt;
 	
 	static void bfs() {
-		int flower = 0;
-		Queue<Point> q = new LinkedList<Point>();
-		for(Point p : pos){
-			if(p.c != 'N')
-				q.add(p);
+		int cnt = 0;
+		Point[][] state = new Point[N][M];
+		for(int i = 0; i<N; i++) {
+			for(int j = 0; j<M; j++) 
+				state[i][j] = new Point();
 		}
+		
+		Queue<Point> q = new LinkedList<Point>();
+		for(int i = 0; i<G; i++) {
+			state[cand[chosen_g[i]][0]][cand[chosen_g[i]][1]] = new Point(0, GREEN);
+			q.add(new Point(cand[chosen_g[i]][0], cand[chosen_g[i]][1]));
+		}
+		for(int i = 0; i<R; i++) {
+			state[cand[chosen_r[i]][0]][cand[chosen_r[i]][1]] = new Point(0, RED);
+			q.add(new Point(cand[chosen_r[i]][0], cand[chosen_r[i]][1]));
+		}
+		
 		while(!q.isEmpty()) {
 			Point now = q.poll();
-			colorMap[now.y][now.x] = now.c;
-			for(int i = 0; i<4; i++) {
-				int ny = now.y + dy[i];
-				int nx = now.x + dx[i];
-				if(ny >= 0 && nx >= 0 && ny < N && nx < M && map[ny][nx] != -1 && colorMap[ny][nx] != 'L') {
-					if(colorMap[ny][nx] != now.c && map[ny][nx] == now.dist + 1)
-						flower++;
-					else {
-						colorMap[ny][nx] = now.c;
-						map[ny][nx] = now.dist + 1;
-						q.add(new Point(ny, nx, map[ny][nx], now.c));
+			int curtime = state[now.y][now.x].y;
+			int curColor = state[now.y][now.x].x;
+			if(state[now.y][now.x].x == FLOWER) continue;
+			for(int dir = 0; dir<4; dir++) {
+				int ny = now.y + dy[dir];
+				int nx = now.x + dx[dir];
+				if(nx < 0 || ny < 0 || ny >= N || nx >= M) continue;
+				if(map[ny][nx] == 0) continue;
+				if(state[ny][nx].x == EMPTY) {
+					state[ny][nx] = new Point(curtime + 1, curColor);
+					q.add(new Point(ny, nx));
+				}else if(state[ny][nx].x == RED) {
+					if(curColor == GREEN && state[ny][nx].y == curtime + 1) {
+						cnt++;
+						state[ny][nx].x = FLOWER;
+					}
+				}else if(state[ny][nx].x == GREEN) {
+					if(curColor == RED && state[ny][nx].y == curtime + 1) {
+						cnt++;
+						state[ny][nx].x = FLOWER;
 					}
 				}
 			}
 		}
-		maxCnt = Math.max(maxCnt, flower);
+		maxCnt = Math.max(maxCnt, cnt);
 	}
 	
 	static void selectGreen(int cnt) {
@@ -52,12 +77,12 @@ public class Gaaaaaaaaaarden {
 			selectRed(0);
 			return;
 		}
-		for(int i = 0; i<pos.size(); i++) {
-			if(pos.get(i).c == 'N') {
-				pos.get(i).c = 'G';
-				selectGreen(cnt + 1);
-				pos.get(i).c = 'N';
-			}
+		int cur = (cnt == 0)? 0 : chosen_g[cnt-1] + 1;
+		for(int i = cur; i<candsz; i++) {
+			chosen_g[cnt] = i;
+			visit[i] = true;
+			selectGreen(cnt + 1);
+			visit[i] = false;
 		}
 	}
 	
@@ -66,12 +91,13 @@ public class Gaaaaaaaaaarden {
 			bfs();
 			return;
 		}
-		for(int i = 0; i<pos.size(); i++) {
-			if(pos.get(i).c == 'N') {
-				pos.get(i).c = 'R';
-				selectRed(cnt + 1);
-				pos.get(i).c = 'N';
-			}
+		int cur = (cnt == 0)? 0 : chosen_r[cnt-1] + 1;
+		for(int i = cur; i<candsz; i++) {
+			if(visit[i]) continue;
+			chosen_r[cnt] = i;
+			visit[i] = true;
+			selectRed(cnt + 1);
+			visit[i] = false;
 		}
 	}
 
@@ -84,38 +110,34 @@ public class Gaaaaaaaaaarden {
 		G = Integer.parseInt(st.nextToken());
 		R = Integer.parseInt(st.nextToken());
 		map = new int[N][M];
-		colorMap = new char[N][M];
 		for(int i = 0; i<N; i++) {
 			st = new StringTokenizer(br.readLine());
 			for(int j = 0; j<M; j++) {
 				map[i][j] = Integer.parseInt(st.nextToken());
 				if(map[i][j] == 2) {
-					pos.add(new Point(i, j, 0, 'N'));
-					map[i][j] = -1;
-				}else if(map[i][j] == 1) {
-					map[i][j] = 0;
-					colorMap[i][j] = 'N';
-				}
-				else {
-					map[i][j] = -1;
-					colorMap[i][j] = 'L';
+					cand[candsz][0] = i;
+					cand[candsz][1] = j;
+					candsz++;
 				}
 			}
 		}
 		selectGreen(0);
-		System.out.println(maxCnt);
+		bw.write(maxCnt + "");
+		bw.flush();
+		bw.close();
+		br.close();
 	}
 	
 	static class Point{
 		int y;
 		int x;
-		int dist;
-		char c;
-		public Point(int y, int x, int dist, char c) {
+		public Point(int y, int x) {
 			this.y = y;
 			this.x = x;
-			this.c = c;
-			this.dist = dist;
+		}
+		public Point() {
+			this.y = 0;
+			this.x = 0;
 		}
 	}
 }
