@@ -15,16 +15,17 @@ public class Fire5427 {
 	static int EMPTY = 0;
 	static int MAN = 1;
 	static int FIRE = 2;
-	static char map[][] = new char[1002][1002];
+	static char map[][] = new char[1001][1001];
 	static int dy[] = {1, 0, -1, 0};
 	static int dx[] = {0, 1, 0, -1};
 	static Point SangGeun;
-	static ArrayList<Point> fire = new ArrayList<Point>();
+	static Point[][] state;
+	static ArrayList<Point> fire;
 	static int minEscape;
 	static int INF = 987654321;
 	
 	static void bfs() {
-		Point[][] state = new Point[h][w];
+		state = new Point[h][w];
 		for(int i = 0; i<h; i++) {
 			for(int j = 0; j<w; j++)
 				state[i][j] = new Point();
