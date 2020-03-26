@@ -29,7 +29,8 @@ public class SelectNum2668 {
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 		N = Integer.parseInt(br.readLine());
 		arr = new int[N+1];
-		visit = cycle = new boolean[N+1];
+		visit = new boolean[N+1];
+		cycle = new boolean[N+1];
 		for(int i = 1; i<=N; i++)
 			arr[i] = Integer.parseInt(br.readLine());
 		for(int i = 1; i<=N; i++) {
@@ -38,9 +39,9 @@ public class SelectNum2668 {
 			dfs(i, arr[i]);
 		}
 		bw.write(maxLen + "\n");
-		for(int i = 1; i<=N; i++)
-			if(cycle[i])
-				bw.write(i + "\n");
+		for(int i = 1; i<=N; i++) {
+			if(cycle[i]) bw.write(i + "\n");
+		}
 		bw.flush();
 		bw.close();
 		br.close();
