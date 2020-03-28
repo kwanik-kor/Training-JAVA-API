@@ -5,18 +5,15 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class WeightRestrict1939 {
 	static int N, M, start, end;
+	static int maxWeight;
+	static boolean visit[];
 	static LinkedList<Node> adj[];
-	static int[] dist;
-	static boolean[] visit;
-	static int maxCost = 0;
-	static final int INF = 1000000001;
 	
 	static boolean bfs(int w) {
 		Queue<Integer> q = new LinkedList<>();
@@ -27,7 +24,8 @@ public class WeightRestrict1939 {
 			if(now == end)
 				return true;
 			for(Node n : adj[now]) {
-				if(!visit[n.idx] && w <= n.val) {
+				if(visit[n.idx]) continue;
+				if(n.val >= w) {
 					visit[n.idx] = true;
 					q.add(n.idx);
 				}
@@ -36,47 +34,48 @@ public class WeightRestrict1939 {
 		return false;
 	}
 	
-	public static void main(String[] args) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-		StringTokenizer st = new StringTokenizer(br.readLine());
-		N = Integer.parseInt(st.nextToken());
-		M = Integer.parseInt(st.nextToken());
-		adj = new LinkedList[N + 1];
-		visit = new boolean[N + 1];
-		for(int i = 1; i<=N; i++){
-			adj[i] = new LinkedList<Node>();
-		}
-		for(int i = 0; i<M; i++) {
-			st = new StringTokenizer(br.readLine());
-			int a = Integer.parseInt(st.nextToken());
-			int b = Integer.parseInt(st.nextToken());
-			int c = Integer.parseInt(st.nextToken());
-			adj[a].add(new Node(b, c));
-			adj[b].add(new Node(a, c));
-			maxCost = Math.max(maxCost, c);
-		}
-		st = new StringTokenizer(br.readLine());
-		start = Integer.parseInt(st.nextToken());
-		end = Integer.parseInt(st.nextToken());
-		
+	static int solve() {
 		int left = 0;
-		int right = maxCost;
+		int right = maxWeight;
 		while(left <= right) {
-			Arrays.fill(visit, false);
+			visit = new boolean[N+1];
 			int mid = (left + right)/2;
 			if(bfs(mid))
 				left = mid + 1;
 			else
 				right = mid - 1;
 		}
-		bw.write(right + "");
+		return right;
+	}
+	
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		N = Integer.parseInt(st.nextToken());
+		M = Integer.parseInt(st.nextToken());
+		adj = new LinkedList[N+1];
+		for(int i = 1; i<=N; i++)
+			adj[i] = new LinkedList<Node>();
+		while(M-- > 0) {
+			st = new StringTokenizer(br.readLine());
+			int a = Integer.parseInt(st.nextToken());
+			int b = Integer.parseInt(st.nextToken());
+			int c = Integer.parseInt(st.nextToken());
+			adj[a].add(new Node(b, c));
+			adj[b].add(new Node(a, c));
+			maxWeight = Math.max(maxWeight, c);
+		}
+		st = new StringTokenizer(br.readLine());
+		start = Integer.parseInt(st.nextToken());
+		end = Integer.parseInt(st.nextToken());
+		bw.write(solve() + "");
 		bw.flush();
 		bw.close();
 		br.close();
 	}
 	
-	static class Node {
+	static class Node{
 		int idx;
 		int val;
 		public Node(int idx, int val) {
