@@ -8,7 +8,7 @@ import java.io.OutputStreamWriter;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.StringTokenizer;
-
+ 
 public class OilDeposits4677 {
 	static int N, M;
 	static int map[][];
