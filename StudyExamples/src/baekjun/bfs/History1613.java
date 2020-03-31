@@ -11,7 +11,7 @@ import java.util.StringTokenizer;
 
 public class History1613 {
 	static int N, K;
-	static ArrayList<Integer> adj[];
+	static ArrayList<Integer> adj[]; 
 	static boolean visit[];
 	static int dp[][];
 	static final int MAX = 402;
