@@ -13,31 +13,32 @@ import java.util.StringTokenizer;
 
 public class EscapeJail9376 {
 	static int h, w;
-	static char[][] map;
-	static int[][][] dist;
-	static int[] dy = {-1, 0, 1, 0};
-	static int[] dx = {0, 1, 0, -1};
-	static ArrayList<Point> prisoner;
+	static char map[][];
+	static int dist[][][];
+	static int dy[] = {-1, 0, 1, 0};
+	static int dx[] = {0, 1, 0, -1};
+	static ArrayList<Point> list;
 	
 	static void bfs() {
-		prisoner.add(new Point(0, 0));
-		for(int k = 0; k<3; k++) {
-			Queue<Point> q = new LinkedList<>();
-			Point p = prisoner.get(k);
+		for(int i = 0; i<3; i++) {
+			Queue<Point> q = new LinkedList<Point>();
+			Point p = list.get(i);
+			dist[p.y][p.x][i] = 0;
 			q.add(p);
-			dist[p.y][p.x][k] = 0;
 			while(!q.isEmpty()) {
 				Point now = q.poll();
-				for(int dir = 0; dir < 4; dir++) {
+				for(int dir = 0; dir<4; dir++) {
 					int ny = now.y + dy[dir];
 					int nx = now.x + dx[dir];
-					if(ny < 0 || nx < 0 || ny >= h + 2 || nx >= w + 2) continue;
-					if(dist[ny][nx][k] >= 0 || map[ny][nx] == '*') continue;
-					if(map[ny][nx] == '.') 
-						dist[ny][nx][k] = dist[now.y][now.x][k];
-					else if(map[ny][nx] == '#')
-						dist[ny][nx][k] = dist[now.y][now.x][k] + 1;
-					q.add(new Point(ny, nx));
+					if(ny < 0 || ny >= h+2 || nx < 0 || nx >= w+2) continue;
+					if(map[ny][nx] == '*') continue;
+					if(map[ny][nx] == '.' && (dist[ny][nx][i] == -1 || dist[ny][nx][i] > dist[now.y][now.x][i])) {
+						dist[ny][nx][i] = dist[now.y][now.x][i];
+						q.add(new Point(ny, nx));
+					}if(map[ny][nx] == '#' && (dist[ny][nx][i] == -1 || dist[ny][nx][i] > dist[now.y][now.x][i] + 1)) {
+						dist[ny][nx][i] = dist[now.y][now.x][i] + 1;
+						q.add(new Point(ny, nx));
+					}
 				}
 			}
 		}
@@ -46,25 +47,29 @@ public class EscapeJail9376 {
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-		int testCase = Integer.parseInt(br.readLine());
-		while(testCase-- > 0) {
+		int T = Integer.parseInt(br.readLine());
+		while(T-- > 0) {
 			StringTokenizer st = new StringTokenizer(br.readLine());
 			h = Integer.parseInt(st.nextToken());
 			w = Integer.parseInt(st.nextToken());
 			map = new char[h+2][w+2];
+			list = new ArrayList<Point>();
+			list.add(new Point(0, 0));
 			dist = new int[h+2][w+2][3];
-			prisoner = new ArrayList<Point>();
 			for(int i = 0; i<h+2; i++) {
-				String str = "";
-				if(i >= 1 && i <= h)
-					str = br.readLine();
+				String tmp = "";
+				if(1 <= i && i <= h)
+					tmp = br.readLine();
 				for(int j = 0; j<w+2; j++) {
 					Arrays.fill(dist[i][j], -1);
-					if(i == 0 || j == 0 || i == h+1 || j == w+1) map[i][j] = '.';
-					else map[i][j] = str.charAt(j - 1);
+					if(i == 0 || i == h+1 || j == 0 || j == w+1) {
+						map[i][j] = '.';
+						continue;
+					}
+					map[i][j] = tmp.charAt(j - 1);
 					if(map[i][j] == '$') {
 						map[i][j] = '.';
-						prisoner.add(new Point(i, j));
+						list.add(new Point(i, j));
 					}
 				}
 			}
@@ -73,9 +78,10 @@ public class EscapeJail9376 {
 			for(int i = 0; i<h+2; i++) {
 				for(int j = 0; j<w+2; j++) {
 					if(map[i][j] == '*') continue;
-					int k = dist[i][j][0] + dist[i][j][1] + dist[i][j][2];
-					if(map[i][j] == '#') k -= 2;
-					ans = Math.min(ans, k);
+					int tmp = dist[i][j][0] + dist[i][j][1] + dist[i][j][2];
+					if(map[i][j] == '#')
+						tmp -= 2;
+					ans = Math.min(ans, tmp);
 				}
 			}
 			bw.write(ans + "\n");
