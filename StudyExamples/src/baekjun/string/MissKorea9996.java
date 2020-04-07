@@ -13,15 +13,13 @@ public class MissKorea9996 {
 
 	static int isPossible(int w, int s) {
 		if(dp[w][s] != -1) return dp[w][s];
-		
 		if(w < pattern.length() && s < file.length() && pattern.charAt(w) == file.charAt(s))
 			return dp[w][s] = isPossible(w + 1, s + 1);
 		if(w == pattern.length())
-			return dp[w][s] = ((s == file.length())? 1: 0);
-		if(pattern.charAt(w) == '*') {
+			return dp[w][s] = ((s == file.length())? 1 : 0);
+		if(pattern.charAt(w) == '*')
 			if(isPossible(w + 1, s) == 1 || (s < file.length() && isPossible(w, s + 1) == 1))
 				return dp[w][s] = 1;
-		}
 		return dp[w][s] = 0;
 	}
 	
@@ -31,9 +29,9 @@ public class MissKorea9996 {
 		int N = Integer.parseInt(br.readLine());
 		pattern = br.readLine();
 		while(N-- > 0) {
-			for(int j = 0; j<101; j++)
-				Arrays.fill(dp[j], -1);
 			file = br.readLine();
+			for(int i = 0; i<101; i++)
+				Arrays.fill(dp[i], -1);
 			if(isPossible(0, 0) == 1) bw.write("DA\n");
 			else bw.write("NE\n");
 		}
