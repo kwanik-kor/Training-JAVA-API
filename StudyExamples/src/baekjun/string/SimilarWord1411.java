@@ -9,7 +9,7 @@ import java.io.OutputStreamWriter;
 public class SimilarWord1411 {
 	
 	static boolean isSimilar(String s1, String s2) {
-		
+		int change[] = new int[26];
 		return false;
 	}
 	
