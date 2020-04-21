@@ -22,7 +22,9 @@ public class RobotVacum14503 {
 		M = Integer.parseInt(st.nextToken());
 		map = new int[N][M];
 		st = new StringTokenizer(br.readLine());
-		
+		for(int i = 0; i<N; i++) {
+			
+		}
 	}
 	
 	static class Point{
