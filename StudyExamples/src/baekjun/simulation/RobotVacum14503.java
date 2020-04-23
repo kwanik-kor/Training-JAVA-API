@@ -24,7 +24,7 @@ public class RobotVacum14503 {
 		st = new StringTokenizer(br.readLine());
 		Point robot = new Point(Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()));
 		for(int i = 0; i<N; i++) {
-			
+			//resting
 		}
 	}
 	
