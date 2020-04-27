@@ -26,6 +26,7 @@ public class RobotVacum14503 {
 		for(int i = 0; i<N; i++) {
 			//resting also on today
 			//and the last rest but today is real last
+			//first work on hubilon It was quite cool.
 		}
 	}
 	
