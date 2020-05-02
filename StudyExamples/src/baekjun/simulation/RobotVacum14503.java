@@ -28,6 +28,7 @@ public class RobotVacum14503 {
 			//and the last rest but today is real last
 			//first work on hubilon It was quite cool.
 			//I should study linux
+			//full
 		}
 	}
 	
