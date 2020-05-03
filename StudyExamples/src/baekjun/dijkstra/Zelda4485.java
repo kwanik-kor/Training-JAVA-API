@@ -21,7 +21,7 @@ public class Zelda4485 {
 		pq.add(new Node(0, 0, map[0][0]));
 		while(!pq.isEmpty()) {
 			Node now = pq.poll();
-			if(dist[now.y][now.x] < now.val)
+			if(dist[now.y][now.x]< now.val)
 				continue;
 			for(int dir = 0; dir<4; dir++) {
 				int ny = now.y + dy[dir];
@@ -57,7 +57,7 @@ public class Zelda4485 {
 		br.close();
 	}
 	
-	static class Node implements Comparable<Node>{
+	static class Node implements Comparable<Node> {
 		int y;
 		int x;
 		int val;
@@ -71,5 +71,4 @@ public class Zelda4485 {
 			return this.val - n.val;
 		}
 	}
-
 }
